@@ -31,7 +31,7 @@ let state = loadState();
 
 function assertRole(actor, allowedRoles, action) {
   if (!actor || !allowedRoles.includes(actor.role)) {
-    throw new Error(`Your demo role is not permitted to ${action}.`);
+    throw new Error(`Your role is not permitted to ${action}.`);
   }
 }
 
@@ -55,13 +55,13 @@ function notify(change, persist = true) {
       localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
     } catch (error) {
       console.error("Could not persist the DirectGas demo changes.", error);
-      throw new Error("Your browser could not save this demo change. Check local storage availability and try again.");
+      throw new Error("Your browser could not save this change. Check local storage availability and try again.");
     }
   }
   listeners.forEach(listener => listener(change, state));
 }
 
-export function createOrder({ actor, customerId, customer, region, kg }) {
+export function createOrder({ actor, customerId, customer, region, kg, demoPrice: quotedPrice }) {
   assertRole(actor, ["admin", "customer"], "create an order");
   const parsedKg = Number(kg);
   if (!Number.isFinite(parsedKg) || parsedKg <= 0) {
@@ -74,11 +74,16 @@ export function createOrder({ actor, customerId, customer, region, kg }) {
   if (actor.role === "customer" && targetCustomerId !== actor.customerId) {
     throw new Error("Customers may only place orders for their own account.");
   }
-  const id = `DG-${String(state.orderSequence).padStart(4, "0")}`;
-  state.orderSequence += 1;
   const name = customerRecord.name;
   const orderRegion = actor.role === "customer" ? customerRecord.region : region || customerRecord.region;
-  const demoPrice = Math.round(parsedKg * 1400 + 2500 + (parsedKg * 1400 + 2500) * .18 + 500);
+  const demoPrice = quotedPrice === undefined
+    ? Math.round(parsedKg * 1400 + 2500 + (parsedKg * 1400 + 2500) * .18 + 500)
+    : Number(quotedPrice);
+  if (!Number.isFinite(demoPrice) || demoPrice < 0) {
+    throw new Error("The displayed price is invalid. Review the price assumptions and try again.");
+  }
+  const id = `DG-${String(state.orderSequence).padStart(4, "0")}`;
+  state.orderSequence += 1;
   const order = {
     id,
     customer: name,
@@ -121,7 +126,7 @@ export function updateOrderStatus({ actor, id, nextStatus }) {
   const order = state.orders.find(item => item.id === id);
   if (!order) throw new Error("The selected order could not be found.");
   if (order.status === "Cancelled" || order.status === "Delivered") {
-    throw new Error("Completed or cancelled demo orders cannot be changed.");
+    throw new Error("Completed or cancelled orders cannot be changed.");
   }
   const wasConfirmed = order.status !== "In progress";
   const isConfirmed = nextStatus !== "In progress" && nextStatus !== "Cancelled";
@@ -153,13 +158,13 @@ export function setRefillAction(action, actor) {
 }
 
 export function addRepayment(actor) {
-  assertRole(actor, ["admin", "customer"], "record a demo financing repayment");
+  assertRole(actor, ["admin", "customer"], "record a financing repayment");
   const balance = Math.max(0, 48000 - state.repayments.reduce((sum, item) => sum + item.amount, 0));
   if (balance === 0) throw new Error("The illustrative financing balance is already repaid.");
   const amount = Math.min(5000, balance);
   const payment = {
     date: "Nov 11, 2026",
-    reference: `OWN-DEMO-${String(state.repayments.length + 1).padStart(3, "0")}`,
+    reference: `OWN-PAY-${String(state.repayments.length + 1).padStart(3, "0")}`,
     amount
   };
   state.repayments.unshift(payment);
@@ -237,7 +242,7 @@ export function updateCustomerProfile({ actor, phone }) {
 }
 
 export function resetDemoData(actor) {
-  assertRole(actor, ["admin"], "reset demonstration data");
+  assertRole(actor, ["admin"], "reset workspace records");
   state = structuredClone(initialData);
   notify({ type: "demo-reset" });
 }

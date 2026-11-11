@@ -9,8 +9,8 @@ function rowsFor(orders) {
 export function render({ session }) {
   const orders = getState().orders.filter(order => order.customerId === session.customerId);
   return `${pageHeader({ eyebrow: "Personal activity", title: "My orders", subtitle: "Only orders associated with your customer account are shown here." })}
-    <article class="card table-card"><div class="table-head"><div><div class="card-title">My order history</div><div class="card-sub">${formatNumber(orders.length)} personal demonstration orders</div></div><div class="filters"><select id="myOrderStatus" aria-label="Filter my orders"><option>All statuses</option><option>Confirmed</option><option>In progress</option><option>Delivered</option><option>Cancelled</option></select></div></div><div class="table-scroll"><table><thead><tr><th>Order</th><th>Date</th><th>Quantity</th><th>Illustrative price</th><th>Status</th><th>Region</th></tr></thead><tbody id="myOrderRows">${rowsFor(orders)}</tbody></table></div></article>
-    <div class="notice blue">Order values are illustrative. Delivery status shown here is a demo record; no physical delivery connection exists.</div>`;
+    <article class="card table-card"><div class="table-head"><div><div class="card-title">My order history</div><div class="card-sub">${formatNumber(orders.length)} personal orders</div></div><div class="filters"><select id="myOrderStatus" aria-label="Filter my orders"><option>All statuses</option><option>Confirmed</option><option>In progress</option><option>Delivered</option><option>Cancelled</option></select></div></div><div class="table-scroll"><table><thead><tr><th>Order</th><th>Date</th><th>Quantity</th><th>Illustrative price</th><th>Status</th><th>Region</th></tr></thead><tbody id="myOrderRows">${rowsFor(orders)}</tbody></table></div></article>
+    <div class="notice blue">Displayed order values are illustrative. A status update here does not arrange physical delivery.</div>`;
 }
 
 export function mount({ session }) {

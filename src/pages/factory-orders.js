@@ -11,14 +11,14 @@ function renderRows(query = "") {
 }
 
 export function render() {
-  return `${pageHeader({ eyebrow: "Factory workspace", title: "Incoming orders", subtitle: "See order references, quantities and regions only. Customer identity and contact information are not available in the factory role." })}
+  return `${pageHeader({ eyebrow: "Factory workspace", title: "Incoming orders", subtitle: "Review order references, quantities and service areas. Personal customer information is protected from supplier accounts." })}
     <div class="grid kpi-grid three">
-      <article class="card kpi"><div class="kpi-top"><span class="kpi-label">Confirmed demand</span><span class="status">Live</span></div><div class="kpi-value">${formatNumber(getState().confirmedKg)}<small> kg</small></div><div class="kpi-foot">Confirmed customer intent</div></article>
+      <article class="card kpi"><div class="kpi-top"><span class="kpi-label">Confirmed demand</span><span class="status">Current</span></div><div class="kpi-value">${formatNumber(getState().confirmedKg)}<small> kg</small></div><div class="kpi-foot">Customer-confirmed orders</div></article>
       <article class="card kpi"><div class="kpi-top"><span class="kpi-label">Predicted demand</span><span class="status predicted">Modelled</span></div><div class="kpi-value">${formatNumber(getState().forecastKg)}<small> kg</small></div><div class="kpi-foot">Forecast stays separate from orders</div></article>
-      <article class="card kpi"><div class="kpi-top"><span class="kpi-label">Forecast confidence</span><span class="status">Estimate</span></div><div class="kpi-value">87%</div><div class="kpi-foot">Illustrative model confidence</div></article>
+      <article class="card kpi"><div class="kpi-top"><span class="kpi-label">Forecast confidence</span><span class="status predicted">Modelled</span></div><div class="kpi-value">87%</div><div class="kpi-foot">Planning estimate</div></article>
     </div>
     <article class="card table-card"><div class="table-head"><div><div class="card-title">Incoming customer demand</div><div class="card-sub">Personal customer information is not exposed to supplier accounts</div></div><div class="filters"><input class="control-select" id="factoryOrderSearch" type="search" placeholder="Search reference or region…" aria-label="Search aggregated orders"><select id="factoryOrderRegion" aria-label="Filter by region"><option>All regions</option><option>Gasabo</option><option>Nyarugenge</option><option>Kicukiro</option><option>Other Kigali</option></select></div></div><div class="table-scroll"><table><thead><tr><th>Order reference</th><th>Region</th><th>Quantity</th><th>Received</th><th>Status</th></tr></thead><tbody id="factoryOrderRows">${renderRows()}</tbody></table></div></article>
-    <div class="notice blue">Incoming order information is demonstration data. This factory account cannot change customer orders, view customer identities or trigger physical fulfilment.</div>`;
+    <div class="notice blue">This workspace displays aggregated order activity only. Supplier access does not include customer identities or order-management controls.</div>`;
 }
 
 export function mount() {

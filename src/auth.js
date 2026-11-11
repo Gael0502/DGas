@@ -88,7 +88,7 @@ export function getSession() {
 export function login(email, password) {
   const account = demoAccounts.find(item => item.email === email.trim().toLowerCase());
   if (!account || password !== DEMO_PASSWORD) {
-    throw new Error("Email or password is incorrect. Use one of the demo accounts below.");
+    throw new Error("Email or password is incorrect. Choose a workspace below to continue.");
   }
   const session = { ...account, authenticatedAt: new Date().toISOString() };
   localStorage.setItem(SESSION_KEY, JSON.stringify({

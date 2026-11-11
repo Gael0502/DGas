@@ -87,7 +87,7 @@ function resolvePath(path, session) {
 function navigate(path, { replace = false, denied = false } = {}) {
   const session = getSession();
   const target = resolvePath(path, session);
-  if (denied && target !== path) toast("That page is not available to your demo role.");
+  if (denied && target !== path) toast("That page is not available to your role.");
   if (window.location.pathname !== target) {
     if (replace) history.replaceState({}, "", target);
     else history.pushState({}, "", target);
@@ -128,7 +128,7 @@ function renderRoute() {
     const denied = Boolean(session && routeDefinitions[window.location.pathname] &&
       routeDefinitions[window.location.pathname].role !== session.role);
     history.replaceState({}, "", target);
-    if (denied) toast("That page is not available to your demo role.");
+    if (denied) toast("That page is not available to your role.");
   }
 
   session = getSession();
@@ -189,7 +189,7 @@ function bindSearch(session) {
         ? ['<a class="search-result" href="/factory/account" data-route="/factory/account">Kigali Energy Hub<small>SUP-001 · assigned supplier account</small></a>']
         : [];
     const matching = [...routeResults, ...orderResults, ...customerResults, ...supplierResults].slice(0, 8);
-    results.innerHTML = matching.length ? matching.join("") : '<div class="empty-state">No matching pages or permitted demo records.</div>';
+    results.innerHTML = matching.length ? matching.join("") : '<div class="empty-state">No matching pages or permitted records.</div>';
     results.classList.add("open");
   };
   input.addEventListener("input", renderResults);

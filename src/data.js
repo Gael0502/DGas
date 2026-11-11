@@ -29,15 +29,15 @@ export const initialData = {
   orderSequence: 249,
   refillAction: "suggested",
   personalOrders: [
-    { date: "Oct 18, 2026", kg: 12, price: "RWF 19,300", ref: "DG-DEMO-244", customerId: "CUS-0284" },
-    { date: "Sep 17, 2026", kg: 12, price: "RWF 19,100", ref: "DG-DEMO-198", customerId: "CUS-0284" },
-    { date: "Aug 16, 2026", kg: 12, price: "RWF 19,450", ref: "DG-DEMO-151", customerId: "CUS-0284" }
+    { date: "Oct 18, 2026", kg: 12, price: "RWF 19,300", ref: "DG-0244", customerId: "CUS-0284" },
+    { date: "Sep 17, 2026", kg: 12, price: "RWF 19,100", ref: "DG-0198", customerId: "CUS-0284" },
+    { date: "Aug 16, 2026", kg: 12, price: "RWF 19,450", ref: "DG-0151", customerId: "CUS-0284" }
   ],
   repayments: [
-    { date: "Oct 05, 2026", reference: "OWN-DEMO-004", amount: 5000 },
-    { date: "Sep 05, 2026", reference: "OWN-DEMO-003", amount: 5000 },
-    { date: "Aug 05, 2026", reference: "OWN-DEMO-002", amount: 5000 },
-    { date: "Jul 05, 2026", reference: "OWN-DEMO-001", amount: 5000 }
+    { date: "Oct 05, 2026", reference: "OWN-PAY-004", amount: 5000 },
+    { date: "Sep 05, 2026", reference: "OWN-PAY-003", amount: 5000 },
+    { date: "Aug 05, 2026", reference: "OWN-PAY-002", amount: 5000 },
+    { date: "Jul 05, 2026", reference: "OWN-PAY-001", amount: 5000 }
   ],
   preferences: {
     emailAlerts: true,

@@ -1,3 +1,5 @@
+import { getState } from "./state.js";
+
 const iconPaths = {
   grid: '<rect x="2.5" y="2.5" width="6" height="6" rx="1.2"/><rect x="11.5" y="2.5" width="6" height="6" rx="1.2"/><rect x="2.5" y="11.5" width="6" height="6" rx="1.2"/><rect x="11.5" y="11.5" width="6" height="6" rx="1.2"/>',
   factory: '<path d="M3 17V8l5 3V8l5 3V5l4-2v14H3Z"/><path d="M6 14h1m3 0h1m3 0h1"/>',
@@ -58,9 +60,16 @@ export function kpiCard(label, value, note, iconName = "chart", isHtmlValue = fa
 }
 
 export function shell(path, pageMarkup, session, navItems) {
+  const state = getState();
   const groups = [...new Set(navItems.map(item => item.group))];
   const nav = groups.map(group => `<div class="nav-group"><div class="nav-label">${escapeHTML(group)}</div>${navItems.filter(item => item.group === group).map(item => `<a class="nav-item ${item.path === path ? "active" : ""}" href="${item.path}" data-route="${item.path}" title="${escapeHTML(item.title)}"><span class="nav-icon">${icon(item.icon)}</span><span class="nav-text">${escapeHTML(item.label)}</span></a>`).join("")}</div>`).join("");
   const current = navItems.find(item => item.path === path);
+  const notifications = session.role === "customer"
+    ? `<div class="popover-item"><strong>Replenishment outlook</strong>Your next refill estimate is ready to review.</div><div class="popover-item"><strong>Order activity</strong>${state.orders.filter(order => order.customerId === session.customerId).length} orders are associated with your account.</div><div class="popover-item"><strong>Account privacy</strong>Your personal order history is visible only in your customer workspace.</div>`
+    : session.role === "factory"
+      ? `<div class="popover-item"><strong>Confirmed market demand</strong>${formatNumber(state.confirmedKg)} kg across ${Object.keys(state.regions).length} service areas.</div><div class="popover-item"><strong>Forecast outlook</strong>${formatNumber(state.forecastKg)} kg predicted for the planning period.</div><div class="popover-item"><strong>Supplier planning</strong>Availability and commitments are reported planning estimates.</div>`
+      : `<div class="popover-item"><strong>Platform demand overview</strong>${formatNumber(state.confirmedKg)} kg across ${state.orders.filter(order => order.status !== "Cancelled").length} active order records.</div><div class="popover-item"><strong>Regional forecast</strong>${formatNumber(state.forecastKg)} kg in the current planning outlook.</div><div class="popover-item"><strong>Workspace activity</strong>Order and demand changes update across your account views.</div>`;
+  const searchPlaceholder = session.role === "admin" ? "Search pages, orders, customers…" : "Search pages and orders…";
   return `<div class="app-shell" id="appShell">
     <aside class="sidebar" id="sidebar">
       <a class="brand" href="${roleHome(session.role)}" data-route="${roleHome(session.role)}" aria-label="DirectGas home">
@@ -69,7 +78,7 @@ export function shell(path, pageMarkup, session, navItems) {
       </a>
       <nav aria-label="Main navigation">${nav}</nav>
       <div class="nav-spacer"></div>
-      <div class="sidebar-demo"><strong>Demonstration environment</strong><p>Illustrative data only. No real orders, payments or deliveries are processed.</p></div>
+      <div class="workspace-preview"><span class="preview-dot"></span><span><strong>Planning workspace</strong><small>Illustrative data · no payment or delivery processing</small></span></div>
       <button class="sidebar-user profile-trigger" type="button" aria-label="Open profile menu"><span class="avatar">${escapeHTML(session.initials)}</span><span class="user-copy"><strong>${escapeHTML(session.name)}</strong><small>${escapeHTML(session.label)}</small></span></button>
     </aside>
     <div class="mobile-overlay" id="mobileOverlay"></div>
@@ -77,10 +86,9 @@ export function shell(path, pageMarkup, session, navItems) {
       <header class="topbar">
         <div class="topbar-left"><button class="icon-button mobile-toggle" id="mobileToggle" type="button" aria-label="Open navigation">${icon("menu", 19)}</button><button class="icon-button collapse-toggle" id="collapseToggle" type="button" aria-label="Collapse sidebar">${icon("menu", 18)}</button><div class="breadcrumb"><a href="${roleHome(session.role)}" data-route="${roleHome(session.role)}">DirectGas</a><span style="color:#bac2ca;margin:0 6px">/</span><b>${escapeHTML(current?.title || "Workspace")}</b></div></div>
         <div class="topbar-actions">
-          <div class="search-wrap"><span class="search-icon">${icon("search", 15)}</span><input id="globalSearch" class="search-input" type="search" placeholder="Search pages, orders, customers…" aria-label="Search"><div class="search-results" id="searchResults"></div></div>
-          <div class="live-badge"><i class="live-dot"></i>Demo data · Live updates</div>
-          <div class="popover-anchor"><button class="icon-button" id="notificationsButton" type="button" aria-label="Notifications">${icon("bell")}<i class="notification-dot"></i></button><div class="popover" id="notificationsPopover"><h3 class="popover-title">Notifications</h3><div class="popover-item"><strong>Demand forecast refreshed</strong>Kigali demo signals updated today.</div><div class="popover-item"><strong>Supplier capacity check</strong>6 illustrative suppliers are on track.</div><div class="popover-item"><strong>Refill reminder</strong>Aline’s next refill is predicted for Nov 18.</div></div></div>
-          <div class="popover-anchor"><button class="profile-button profile-trigger" id="profileButton" type="button"><span class="avatar">${escapeHTML(session.initials)}</span><span class="profile-copy"><strong>${escapeHTML(session.name)}</strong><small>${escapeHTML(session.label)}</small></span>${icon("chevron", 13)}</button><div class="popover" id="profilePopover"><h3 class="popover-title">${escapeHTML(session.email)}</h3><div class="popover-item">Signed in as <strong>${escapeHTML(session.label)}</strong> · local demo session.</div><button class="popover-link" id="logoutButton" type="button">${icon("logout", 14)} &nbsp; Sign out</button><div class="popover-item">Demo authentication only. Not production security.</div></div></div>
+          <div class="search-wrap"><span class="search-icon">${icon("search", 15)}</span><input id="globalSearch" class="search-input" type="search" placeholder="${searchPlaceholder}" aria-label="Search"><div class="search-results" id="searchResults"></div></div>
+          <div class="popover-anchor"><button class="icon-button" id="notificationsButton" type="button" aria-label="Workspace updates">${icon("bell")}</button><div class="popover" id="notificationsPopover"><h3 class="popover-title">Workspace updates</h3>${notifications}</div></div>
+          <div class="popover-anchor"><button class="profile-button profile-trigger" id="profileButton" type="button"><span class="avatar">${escapeHTML(session.initials)}</span><span class="profile-copy"><strong>${escapeHTML(session.name)}</strong><small>${escapeHTML(session.label)}</small></span>${icon("chevron", 13)}</button><div class="popover" id="profilePopover"><h3 class="popover-title">${escapeHTML(session.email)}</h3><div class="popover-item">Signed in as <strong>${escapeHTML(session.label)}</strong>.</div><button class="popover-link" id="logoutButton" type="button">${icon("logout", 14)} &nbsp; Sign out</button><div class="popover-item">Commercial orders, payment processing and physical delivery are not enabled.</div></div></div>
         </div>
       </header>
       <div class="content" id="pageContent">${pageMarkup}</div>

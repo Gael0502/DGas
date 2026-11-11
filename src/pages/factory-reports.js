@@ -24,7 +24,7 @@ function renderPreview() {
 function downloadCsv() {
   const { summary, orders, region, days } = filteredData();
   const rows = [
-    ["DirectGas demonstration demand report", "Fictional planning data only"],
+    ["DirectGas regional demand report", "Illustrative planning data"],
     ["Forecast horizon", `${days} days`],
     ["Region filter", region],
     [],
@@ -54,10 +54,10 @@ export function render() {
   const actions = `<div class="filters"><select id="factoryReportRegion" aria-label="Report region"><option>All regions</option>${regions.map(region => `<option>${escapeHTML(region)}</option>`).join("")}</select><select id="factoryReportHorizon" aria-label="Report forecast horizon">${factoryHorizons.map(item => `<option>${item.label}</option>`).join("")}</select><button class="btn btn-primary" id="downloadFactoryReport" type="button">↓ Export CSV</button></div>`;
   const { summary, orders } = filteredDataInitial();
   return `${pageHeader({ eyebrow: "Workspace · exportable insights", title: "Demand reports", subtitle: "Build a shareable regional planning snapshot. Exports contain aggregated demand and order references only—never customer identity or contact data.", actions })}
-    <div class="factory-intelligence-alert"><strong>Privacy by design</strong><span>Report previews and CSV exports include regional totals and permitted order fields only. No customer names, email addresses, phone numbers or personal history are included.</span><small>Demonstration data · not a commercial report</small></div>
+    <div class="factory-intelligence-alert"><strong>Privacy by design</strong><span>Report previews and CSV exports include regional totals and permitted order fields only. No customer names, email addresses, phone numbers or personal history are included.</span><small>Aggregated planning data</small></div>
     <article class="card table-card"><div class="table-head"><div><div class="card-title">Regional demand summary</div><div class="card-sub" id="factoryReportPeriodLabel">${orders.length} aggregated order records · next 7 days forecast</div></div><span class="status">Illustrative</span></div><div class="table-scroll"><table><thead><tr><th>Region</th><th>Confirmed demand</th><th>Predicted demand</th><th>Available estimate</th><th>Committed supply</th><th>Planning signal</th></tr></thead><tbody id="factoryReportSummary">${summary.map(item => `<tr><td><strong>${escapeHTML(item.name)}</strong></td><td>${formatNumber(item.confirmed)} kg</td><td>${formatNumber(item.predicted)} kg</td><td>${formatNumber(item.available)} kg</td><td>${formatNumber(item.committed)} kg</td><td>${item.predicted > item.available ? statusBadge("Supply gap") : item.predicted > item.committed || item.confirmed > item.committed ? statusBadge("Review allocation") : statusBadge("Covered")}</td></tr>`).join("")}</tbody></table></div></article>
     <article class="card table-card" style="margin-top:14px"><div class="table-head"><div><div class="card-title">Incoming order signals</div><div class="card-sub">Reference, area, volume, received date and status</div></div><a class="btn btn-small" href="/factory/incoming-orders" data-route="/factory/incoming-orders">Open incoming orders</a></div><div class="table-scroll"><table><thead><tr><th>Order reference</th><th>Region</th><th>Quantity</th><th>Received</th><th>Status</th></tr></thead><tbody id="factoryReportOrders">${orders.length ? orders.slice(0, 8).map(order => `<tr><td><strong>${escapeHTML(order.id)}</strong></td><td>${escapeHTML(order.region)}</td><td>${formatNumber(order.kg)} kg</td><td>${escapeHTML(order.created)}</td><td>${statusBadge(order.status)}</td></tr>`).join("") : '<tr><td colspan="5"><div class="empty-state">No incoming order records yet.</div></td></tr>'}</tbody></table></div></article>
-    <div class="notice blue">The report is an illustrative planning aid. Availability, forecasts and confidence are unverified assumptions; this demo does not initiate supply allocation or physical delivery.</div>`;
+    <div class="notice blue">This report is an illustrative planning aid. Availability and forecasts are unverified assumptions; exports do not initiate supply allocation or physical delivery.</div>`;
 }
 
 function filteredDataInitial() {
