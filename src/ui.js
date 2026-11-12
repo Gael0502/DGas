@@ -92,6 +92,31 @@ export function shell(path, pageMarkup, session, navItems) {
         </div>
       </header>
       <div class="content" id="pageContent">${pageMarkup}</div>
+      <footer class="site-footer">
+        <div class="site-footer-inner">
+          <section class="footer-story" aria-labelledby="footerStoryTitle">
+            <div class="footer-eyebrow">Why DirectGas</div>
+            <h2 id="footerStoryTitle">A better way to keep the flame on.</h2>
+            <p>We grew tired of watching rising gas prices put reliable cooking fuel further out of reach for too many households. Daudi and Chrispin believed the answer started with a more connected supply chain: clearer prices for customers, better visibility into local demand, and smarter planning for suppliers.</p>
+            <p>That belief became DirectGas—not just a place to order LPG, but an intelligence layer designed to help the people who need gas and the people who supply it make better-informed decisions.</p>
+          </section>
+          <section class="footer-founders" aria-labelledby="footerFoundersTitle">
+            <div class="footer-eyebrow">The people behind the idea</div>
+            <h2 id="footerFoundersTitle">Meet the founders</h2>
+            <div class="founder-list">
+              <article class="founder-card">
+                <div class="founder-portrait daudi-portrait" role="img" aria-label="Portrait placeholder for Daudi"><span>D</span></div>
+                <div><h3>Daudi</h3><p>Co-founder</p></div>
+              </article>
+              <article class="founder-card">
+                <div class="founder-portrait chrispin-portrait" role="img" aria-label="Portrait placeholder for Chrispin"><span>C</span></div>
+                <div><h3>Chrispin</h3><p>Co-founder</p></div>
+              </article>
+            </div>
+          </section>
+        </div>
+        <div class="site-footer-bottom"><span>DirectGas · LPG supply chain intelligence</span><span>Built for a more connected energy future.</span></div>
+      </footer>
     </main>
   </div>`;
 }
