@@ -106,11 +106,15 @@ export function shell(path, pageMarkup, session, navItems) {
             <div class="founder-list">
               <article class="founder-card">
                 <div class="founder-portrait daudi-portrait" role="img" aria-label="Portrait placeholder for Daudi"><span>D</span></div>
-                <div><h3>Daudi</h3><p>Co-founder</p></div>
+                <div><h3>Daudi</h3><p>CEO</p></div>
               </article>
               <article class="founder-card">
                 <div class="founder-portrait chrispin-portrait" role="img" aria-label="Portrait placeholder for Chrispin"><span>C</span></div>
-                <div><h3>Chrispin</h3><p>Co-founder</p></div>
+                <div><h3>Chrispin</h3><p>CTO</p></div>
+              </article>
+              <article class="founder-card">
+                <div class="founder-portrait kenny-portrait" role="img" aria-label="Portrait placeholder for Kenny"><span>K</span></div>
+                <div><h3>Kenny</h3><p>CMO</p></div>
               </article>
             </div>
           </section>
