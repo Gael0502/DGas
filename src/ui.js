@@ -109,7 +109,7 @@ export function shell(path, pageMarkup, session, navItems) {
             <h2 id="footerFoundersTitle">Meet the founders</h2>
             <div class="founder-list">
               <article class="founder-card">
-                <div class="founder-portrait daudi-portrait" role="img" aria-label="Portrait placeholder for Daudi"><span>D</span></div>
+                <img class="founder-portrait daudi-portrait" src="/assets/daudi-founder.png" alt="Daudi, DirectGas CEO" loading="lazy" decoding="async">
                 <div><h3>Daudi</h3><p>CEO</p></div>
               </article>
               <article class="founder-card">
