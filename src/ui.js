@@ -113,7 +113,7 @@ export function shell(path, pageMarkup, session, navItems) {
                 <div><h3>Daudi</h3><p>CEO</p></div>
               </article>
               <article class="founder-card">
-                <div class="founder-portrait chrispin-portrait" role="img" aria-label="Portrait placeholder for Chrispin"><span>C</span></div>
+                <img class="founder-portrait chrispin-portrait" src="/assets/chrispin-founder.png" alt="Chrispin, DirectGas CTO" loading="lazy" decoding="async">
                 <div><h3>Chrispin</h3><p>CTO</p></div>
               </article>
               <article class="founder-card">

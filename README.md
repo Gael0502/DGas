@@ -31,3 +31,4 @@ This preview uses client-side account and role controls and is not production au
 - `assets/kigali-skyline.jpg`: “Kigali skyline” by lorihowesm, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/), [original photo](https://www.flickr.com/photos/88357066@N07/8085984107).
 - `assets/gas-cooktop.jpg`: Unsplash photo `1556911220-e15b29be8c8f`, used under the [Unsplash License](https://unsplash.com/license).
 - `assets/daudi-founder.png`: Founder headshot supplied by Daudi.
+- `assets/chrispin-founder.png`: Founder headshot supplied by Chrispin.
