@@ -25,3 +25,8 @@ Vercel deployments use `vercel.json` to route application paths such as `/login`
 All records and planning figures are illustrative and stored in the browser. Supplier connections, payments, messaging and physical delivery are not enabled. Licensed operators remain responsible for LPG handling and fulfilment.
 
 This preview uses client-side account and role controls and is not production authentication. Do not enter real customer information; a production service must enforce authentication, authorization and data protection on a trusted backend.
+
+## Image credits
+
+- `assets/kigali-skyline.jpg`: “Kigali skyline” by lorihowesm, [CC BY 2.0](https://creativecommons.org/licenses/by/2.0/), [original photo](https://www.flickr.com/photos/88357066@N07/8085984107).
+- `assets/gas-cooktop.jpg`: Unsplash photo `1556911220-e15b29be8c8f`, used under the [Unsplash License](https://unsplash.com/license).

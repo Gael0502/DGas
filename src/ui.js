@@ -100,6 +100,10 @@ export function shell(path, pageMarkup, session, navItems) {
             <p>We grew tired of watching rising gas prices put reliable cooking fuel further out of reach for too many households. Daudi and Chrispin believed the answer started with a more connected supply chain: clearer prices for customers, better visibility into local demand, and smarter planning for suppliers.</p>
             <p>That belief became DirectGas—not just a place to order LPG, but an intelligence layer designed to help the people who need gas and the people who supply it make better-informed decisions.</p>
           </section>
+          <figure class="footer-kigali">
+            <img src="/assets/kigali-skyline.jpg" alt="Kigali's hillside neighborhoods and city skyline" loading="lazy" decoding="async">
+            <figcaption><strong>Kigali, Rwanda</strong><span>Photo by <a href="https://www.flickr.com/photos/88357066@N07/8085984107" target="_blank" rel="noopener noreferrer">lorihowesm</a> · <a href="https://creativecommons.org/licenses/by/2.0/" target="_blank" rel="noopener noreferrer">CC BY 2.0</a></span></figcaption>
+          </figure>
           <section class="footer-founders" aria-labelledby="footerFoundersTitle">
             <div class="footer-eyebrow">The people behind the idea</div>
             <h2 id="footerFoundersTitle">Meet the founders</h2>

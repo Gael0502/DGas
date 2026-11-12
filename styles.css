@@ -81,11 +81,19 @@ a { color: inherit; text-decoration: none; }
 .search-result small { display: block; margin-top: 3px; color: #98a2ae; font-size: 8px; }
 .content { max-width: 1500px; margin: auto; padding: 32px 32px 48px; }
 .site-footer { padding: 34px 32px 17px; color: #d7e2e8; background: #10233f; }
-.site-footer-inner { display: grid; max-width: 1436px; grid-template-columns: minmax(0,1fr); gap: 25px; margin: 0 auto; }
+.site-footer-inner { display: grid; max-width: 1436px; grid-template-columns: minmax(0,1.3fr) minmax(250px,.7fr); gap: 25px 30px; margin: 0 auto; }
 .footer-eyebrow { margin-bottom: 8px; color: #65cfaa; font-size: 10px; font-weight: 700; letter-spacing: 1.2px; text-transform: uppercase; }
 .site-footer h2 { margin: 0 0 12px; color: #fff; font: 700 19px Manrope,sans-serif; letter-spacing: -.35px; }
 .footer-story p { max-width: 700px; margin: 0 0 10px; color: #b6c6d1; font-size: 12px; line-height: 1.75; }
+.footer-kigali { position: relative; min-height: 190px; overflow: hidden; margin: 0; border: 1px solid rgba(255,255,255,.12); border-radius: 12px; background: #193353; }
+.footer-kigali::after { position: absolute; inset: 30% 0 0; background: linear-gradient(transparent,rgba(8,24,42,.88)); content: ""; pointer-events: none; }
+.footer-kigali img { display: block; width: 100%; height: 190px; object-fit: cover; object-position: center 44%; }
+.footer-kigali figcaption { position: absolute; right: 12px; bottom: 11px; left: 13px; z-index: 1; display: flex; align-items: flex-end; justify-content: space-between; gap: 10px; color: white; }
+.footer-kigali figcaption strong { font: 700 12px Manrope,sans-serif; }
+.footer-kigali figcaption span { color: #d3dee6; font-size: 8px; text-align: right; }
+.footer-kigali figcaption a { text-decoration: underline; text-underline-offset: 2px; }
 .footer-founders h2 { margin-bottom: 15px; }
+.footer-founders { grid-column: 1 / -1; }
 .founder-list { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 14px; }
 .founder-card { display: flex; min-width: 0; min-height: 82px; align-items: center; gap: 14px; padding: 12px 16px; border: 1px solid rgba(255,255,255,.11); border-radius: 10px; background: rgba(255,255,255,.045); transition: background .18s ease, border-color .18s ease, transform .18s ease; }
 .founder-card:hover { transform: translateY(-2px); border-color: rgba(101,207,170,.4); background: rgba(255,255,255,.075); }
@@ -247,7 +255,7 @@ td strong { color: #374b62; font-weight: 600; }
 .mobile-overlay { display: none; }
 .loading { padding: 30px; color: #8b98a6; font-size: 10px; }
 .login-layout { display: grid; min-height: 100vh; grid-template-columns: minmax(0,1.05fr) minmax(440px,.95fr); background: white; }
-.login-brand-panel { position: relative; display: flex; min-height: 100vh; flex-direction: column; justify-content: space-between; overflow: hidden; padding: 32px clamp(28px,6vw,82px) 25px; color: white; background: radial-gradient(ellipse at 86% 76%,rgba(35,141,111,.34),transparent 42%),linear-gradient(145deg,#10233f,#142f4d 62%,#143c4b); }
+.login-brand-panel { position: relative; display: flex; min-height: 100vh; flex-direction: column; justify-content: space-between; overflow: hidden; padding: 32px clamp(28px,6vw,82px) 25px; color: white; background: linear-gradient(90deg,rgba(10,30,51,.97) 0%,rgba(10,30,51,.88) 45%,rgba(10,30,51,.48) 100%),linear-gradient(0deg,rgba(8,27,46,.3),rgba(8,27,46,.12)),url("/assets/gas-cooktop.jpg") center/cover no-repeat; }
 .login-brand-panel::after { position: absolute; right: -120px; bottom: -180px; width: 520px; height: 520px; border: 1px solid rgba(255,255,255,.09); border-radius: 50%; box-shadow: 0 0 0 45px rgba(255,255,255,.025),0 0 0 95px rgba(255,255,255,.02); content: ""; pointer-events: none; }
 .login-brand { position: relative; z-index: 1; width: fit-content; padding: 0; }
 .login-brand-copy { position: relative; z-index: 1; max-width: 520px; margin: auto 0; padding: 70px 0; }
@@ -301,7 +309,7 @@ td strong { color: #374b62; font-weight: 600; }
 }
 @media (max-width: 780px) {
   .login-layout { grid-template-columns: 1fr; }
-  .login-brand-panel { min-height: 290px; padding: 20px 22px; }
+  .login-brand-panel { min-height: 290px; padding: 20px 22px; background-position: center,center,62% center; }
   .login-brand-copy { padding: 26px 0 18px; }
   .login-brand-copy h1 { max-width: 450px; font-size: 28px; }
   .login-brand-copy p { margin-top: 8px; font-size: 12px; }
@@ -329,7 +337,8 @@ td strong { color: #374b62; font-weight: 600; }
   .content { padding: 22px 15px 30px; }
   .dashboard-grid, .section-grid, .two-col { grid-template-columns: 1fr; }
   .site-footer { padding: 28px 15px 15px; }
-  .site-footer-inner { gap: 24px; }
+  .site-footer-inner { grid-template-columns: 1fr; gap: 24px; }
+  .footer-founders { grid-column: auto; }
   .site-footer-bottom { flex-direction: column; gap: 6px; margin-top: 20px; }
   .page-heading { flex-direction: column; }
   .heading-actions { width: 100%; justify-content: space-between; }
