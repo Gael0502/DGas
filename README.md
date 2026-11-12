@@ -12,6 +12,8 @@ powershell -ExecutionPolicy Bypass -File .\server.ps1
 
 Open [http://localhost:4174](http://localhost:4174). The sign-in page provides quick access to each workspace.
 
+Vercel deployments use `vercel.json` to route application paths such as `/login` and `/factory/dashboard` to the SPA entry point, so direct links and page refreshes work.
+
 ## Product preview
 
 - **Factory Intelligence Centre:** regional demand, forecasts, incoming orders, demand history, reports and supply planning.
